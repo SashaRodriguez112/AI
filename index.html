@@ -1,19 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Chat Assistant</title>
-    <!-- Add Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Add React and ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- Add Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .chat-container {
+            width: 300px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-window {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background-color: #daf8da;
+            text-align: right;
+        }
+
+        .bot-message {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-window" id="chat-window">
+            <div class="message bot-message">Hello! How can I help you today?</div>
+        </div>
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            
+            if (message) {
+                addMessage('user-message', message);
+                userInput.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    addMessage('bot-message', 'This is a pre-defined response.');
+                }, 1000);
+            }
+        }
+
+        function addMessage(className, message) {
+            const chatWindow = document.getElementById('chat-window');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+            messageDiv.textContent = message;
+            chatWindow.appendChild(messageDiv);
+            
+            // Scroll to the bottom
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+    </script>
+</body>
 </html>
